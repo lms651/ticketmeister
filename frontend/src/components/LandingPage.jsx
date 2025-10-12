@@ -1,15 +1,18 @@
 import LandingCarousel from "./LandingCarousel";
+import React from "react";
 import Button from "./Button";
-import Register from "./Register";
+// import EventDetails from "./EventDetails";
 
 export default function LandingPage() {
+
+    const [loggedIn, setLoggedIn] = React.useState(false)
 
     return (
         <main>
             <h2>Check out the latest events!</h2>
-            <LandingCarousel />
+            <LandingCarousel loggedIn = { loggedIn }/>
             <Button text="Join now to Book!" />
-            <Register />
+            {/* <EventDetails /> */}
         </main>
     )
 }
