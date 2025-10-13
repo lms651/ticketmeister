@@ -6,31 +6,29 @@ export default function EventDetails(props) {
     const [ticketNumber, setTicketNumber] = React.useState(1);
     const navigate = useNavigate();
 
+    //resets ticket to 1 if user changes events
+    React.useEffect(() => {
+        setTicketNumber(1);
+        }, [props.event]);
+
     const handleTicketAmountChange = (event) => {
         const value = Number(event.target.value);
         setTicketNumber(value);
     }
-    
 
     const totalPrice = ticketNumber * props.event.price;
 
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     console.log(`Purchasing ${ticketNumber} tickets for $${totalPrice}`);
-//     // navigate to cart
-//   }
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-  const handleSubmit = (e) => {
-  e.preventDefault();
-
-  navigate("/checkout", {
-    state: {
-      event: props.event,
-      ticketNumber,
-      totalPrice,
-    },
-  });
-};
+        navigate("/checkout", {
+            state: {
+            event: props.event,
+            ticketNumber,
+            totalPrice,
+            }
+        })
+    }
 
     return (
         <div className="event-container">

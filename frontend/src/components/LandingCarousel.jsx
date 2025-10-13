@@ -1,4 +1,3 @@
-import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import pixel from "../images/pixel.jpg"
@@ -13,6 +12,7 @@ export default function LandingCarousel(props) {
 
   return (
     <Carousel
+      key={props.frozen ? `frozen-${props.frozenSlide}` : "unfrozen"} // forces re-render on freeze
       autoPlay={!props.frozen}             // stops autoplay when frozen
       infiniteLoop={!props.frozen}         // stop infinite loop when frozen
       showThumbs={false}
