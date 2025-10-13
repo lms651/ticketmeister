@@ -1,8 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function EventDetails(props) {
 
     const [ticketNumber, setTicketNumber] = React.useState(1);
+    const navigate = useNavigate();
 
     const handleTicketAmountChange = (event) => {
         const value = Number(event.target.value);
@@ -12,11 +14,23 @@ export default function EventDetails(props) {
 
     const totalPrice = ticketNumber * props.event.price;
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(`Purchasing ${ticketNumber} tickets for $${totalPrice}`);
-    // navigate to cart
-  }
+//   const handleSubmit = (event) => {
+//     event.preventDefault();
+//     console.log(`Purchasing ${ticketNumber} tickets for $${totalPrice}`);
+//     // navigate to cart
+//   }
+
+  const handleSubmit = (e) => {
+  e.preventDefault();
+
+  navigate("/checkout", {
+    state: {
+      event: props.event,
+      ticketNumber,
+      totalPrice,
+    },
+  });
+};
 
     return (
         <div className="event-container">
