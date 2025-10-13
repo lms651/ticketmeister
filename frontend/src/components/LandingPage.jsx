@@ -1,7 +1,7 @@
-import LandingCarousel from "./LandingCarousel";
-import React from "react";
-import Button from "./Button";
-import EventDetails from "./EventDetails";
+import LandingCarousel from "./LandingCarousel"
+import React from "react"
+import Button from "./Button"
+import EventDetails from "./EventDetails"
 
 export default function LandingPage() {
 

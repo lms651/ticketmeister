@@ -8,6 +8,7 @@ import EventDetails from './components/EventDetails.jsx'
 // import '@fortawesome/fontawesome-free/css/all.min.css';
 // import { CartProvider } from "react-use-cart";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import PurchaseComplete from './components/PurchaseComplete.jsx'
 
 
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/event/:id" element={<EventDetails />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/purchase" element={<PurchaseComplete />} />
       </Routes>
     </Router>
   )

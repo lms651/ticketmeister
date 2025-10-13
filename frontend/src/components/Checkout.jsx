@@ -1,7 +1,14 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate} from "react-router-dom"
+import { FaCheckCircle } from "react-icons/fa";
 
 export default function Checkout() {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleCompletePurchase = () => {
+    navigate("/purchase");
+  }
+
   const { event, ticketNumber, totalPrice } = location.state || {};
 
   if (!event) {
@@ -15,7 +22,7 @@ export default function Checkout() {
       <p><strong>Tickets:</strong> {ticketNumber}</p>
       <p><strong>Total:</strong> ${totalPrice}</p>
 
-      <button>Confirm Purchase</button>
+      <button className="button-with-icon" onClick={handleCompletePurchase}><FaCheckCircle size={20} /> Confirm Purchase</button>
     </section>
   );
 }
