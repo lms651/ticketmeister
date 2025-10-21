@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Event Chat</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.js"></script>
+</head>
+<body>
+  <input id="name" placeholder="Your name">
+  <input id="venue" placeholder="Event ID">
+  <input id="message" placeholder="Type a message">
+  <button id="joinBtn">Join Event</button>
+  <button id="sendBtn">Send</button>
+  <ul id="messages"></ul>
+
+  <script>
+    const socket = io("http://localhost:5000");
+
+    const nameInput = document.querySelector("#name");
+    const venueInput = document.querySelector("#venue");
+    const msgInput = document.querySelector("#message");
+    const joinBtn = document.querySelector("#joinBtn");
+    const sendBtn = document.querySelector("#sendBtn");
+    const messagesList = document.querySelector("#messages");
+
+    let currentVenue = "";
+
+    joinBtn.addEventListener("click", () => {
+      const userName = nameInput.value;
+      currentVenue = venueInput.value;
+      socket.emit("joinRoom", currentVenue, userName);
+    });
+
+    sendBtn.addEventListener("click", () => {
+      const userName = nameInput.value;
+      const msg = msgInput.value;
+      socket.emit("chat message", { venueId: currentVenue, userName, msg });
+      msgInput.value = "";
+    });
+
+    socket.on("chat message", (msgObj) => {
+        const li = document.createElement("li");
+        li.textContent = `${msgObj.sentTime} - ${msgObj.sender}: ${msgObj.message}`;
+        messagesList.appendChild(li);
+    });
+  </script>
+</body>
+</html>

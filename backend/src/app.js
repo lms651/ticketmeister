@@ -17,6 +17,6 @@ app.use("/venues", venueRoutes);
 app.use("/signups", signupRoutes);
 
 
-app.get("/", (req, res) => res.send("API is running..."));
+// app.get("/", (req, res) => res.send("API is running..."));
 
 export default app;
