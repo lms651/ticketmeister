@@ -5,10 +5,29 @@ import carnaval from "../images/carnaval2.jpg"
 
 export default function LandingCarousel(props) {
 
-  const events = [
-    { src: pixel, title: "Pixel Party", description: "Choose any 8-bit character!", venue: "7th Wave", date: "Dec 10", time: "7PM", price: 30 },
-    { src: carnaval, title: "Winter Carnaval", description: "Come meet Bonhomme!", venue: "Quebec City", date: "Dec 20", time: "6PM", price: 50 }
+  // Later fetch from MongoDB
+  const venues = [
+    { 
+      src: pixel, 
+      eventName: "Pixel Party", 
+      eventDescription: "Choose any 8-bit character!", 
+      venueName: "7th Wave", 
+      eventDate: "Dec 10", 
+      eventTime: "7PM", 
+      ticketPrice: 30 
+    },
+    { 
+      src: carnaval, 
+      eventName: "Winter Carnaval", 
+      eventDescription: "Come meet Bonhomme!", 
+      venueName: "Quebec City", 
+      eventDate: "Dec 20", 
+      eventTime: "6PM", 
+      ticketPrice: 50 
+    }
   ]
+
+
 
   return (
     <Carousel
@@ -20,15 +39,15 @@ export default function LandingCarousel(props) {
       interval={3000}
       selectedItem={props.frozenSlide ?? 0} // freeze on selected slide
     >
-      {events.map((event, index) => (
+      {venues.map((venue, index) => (
         <div key={index} className="carousel-item">
-          <img src={event.src} alt={event.title} />
-          <p className="legend">{event.description}</p>
+          <img src={venue.src} alt={venue.eventName} />
+          <p className="legend">{venue.eventDescription}</p>
           
           {props.loggedIn && (
             <button
               className="book-btn"
-              onClick={() => props.clickedBookNow(event, index)}
+              onClick={() => props.clickedBookNow(venue, index)}
             >
               Book Now
             </button>

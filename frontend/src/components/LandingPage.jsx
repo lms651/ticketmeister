@@ -6,7 +6,7 @@ import EventDetails from "./EventDetails"
 export default function LandingPage() {
 
     const [loggedIn, setLoggedIn] = React.useState(true)
-    const [selectedEvent, setSelectedEvent] = React.useState(null);
+    const [selectedVenue, setSelectedVenue] = React.useState(null);
     const [selectedIndex, setSelectedIndex] = React.useState(null);
     const [frozen, setFrozen] = React.useState(false);
 
@@ -17,7 +17,7 @@ export default function LandingPage() {
             <LandingCarousel
                 loggedIn={loggedIn}
                 clickedBookNow={(event, index) => {
-                    setSelectedEvent(event);
+                    setSelectedVenue(event);
                     setSelectedIndex(index);
                     setFrozen(true); // freeze carousel immediately and show event details^^
                 }}
@@ -29,8 +29,8 @@ export default function LandingPage() {
             {!loggedIn && <Button text="Join now to Book!" />}            
             
             {/* Event details for the selected slide */}
-            { selectedEvent && frozen && (
-            <EventDetails event={selectedEvent} />
+            { selectedVenue && frozen && (
+            <EventDetails venue={selectedVenue} />
             )}
         </main>
     )
