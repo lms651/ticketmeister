@@ -1,5 +1,5 @@
 import { useLocation, useNavigate} from "react-router-dom"
-import { FaCheckCircle } from "react-icons/fa";
+import { FaCheckCircle, FaTimesCircle, FaXingSquare, FaXRay } from "react-icons/fa";
 
 export default function Checkout() {
   const location = useLocation();
@@ -7,6 +7,10 @@ export default function Checkout() {
 
   const handleCompletePurchase = () => {
     navigate("/purchase");
+  }
+
+  const handleCancel = () => {
+    navigate("/")
   }
 
   const { event, ticketNumber, totalPrice } = location.state || {};
@@ -24,7 +28,9 @@ export default function Checkout() {
       <p><strong>Tickets:</strong> {ticketNumber}</p>
       <p><strong>Total:</strong> ${totalPrice}</p>
 
-      <button className="button-with-icon" onClick={handleCompletePurchase}><FaCheckCircle size={20} /> Confirm Purchase</button>
+      <button className="button-with-icon"   style={{ backgroundColor: 'green', color: 'white' }}
+      onClick={handleCompletePurchase}><FaCheckCircle size={20} /> Confirm Purchase</button>
+      <button className="button-with-icon" onClick={handleCancel}><FaTimesCircle size={20} /> Cancel</button>
     </section>
   );
 }
