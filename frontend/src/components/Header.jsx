@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import logo from "../images/presenter.jpg"
 import { FaUserCircle } from "react-icons/fa";
-import { Menu } from "@headlessui/react";
+import { Menu, MenuItems, MenuItem, MenuButton } from "@headlessui/react";
 import { useNavigate} from "react-router-dom"
 
 
@@ -25,35 +25,32 @@ export default function Header({ loggedIn, setLoggedIn }) {
             <div className="right-section">
       {loggedIn && (
         <Menu as="div" className="relative-avatar-container">
-          <Menu.Button>
+          <MenuButton>
             <FaUserCircle size={35} className="avatar-icon" />
-          </Menu.Button>
+          </MenuButton>
+          <MenuItems className="dropdown-menu">
+            <MenuItem
+                as="button"
+                className={({ active }) =>
+                `menu-item ${active ? "active" : ""}`
+                }
+                onClick={() => console.log("Edit profile")}
+            >
+                Edit Profile
+            </MenuItem>
 
-          <Menu.Items className="dropdown-menu">
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  className={active ? "menu-item active" : "menu-item"}
-                  onClick={() => console.log("Edit profile")}
-                >
-                  Edit Profile
-                </button>
-              )}
-            </Menu.Item>
-
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  className={active ? "menu-item active" : "menu-item"}
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
-              )}
-            </Menu.Item>
-          </Menu.Items>
-        </Menu>
-      )}
+            <MenuItem
+                as="button"
+                className={({ active }) =>
+                `menu-item ${active ? "active" : ""}`
+                }
+                onClick={handleLogout}
+            >
+                Logout
+            </MenuItem>
+            </MenuItems>
+                    </Menu>
+                )}
             </div>
         </header>
     )
