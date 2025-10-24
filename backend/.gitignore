@@ -3,6 +3,9 @@ node_modules/
 
 # Environment variables
 .env
+.env.signup.test
+.env.user.test
+.env.venue.test
 
 # Optional: logs
 npm-debug.log
