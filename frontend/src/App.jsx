@@ -16,7 +16,7 @@ function App() {
 
   return (
     <Router>
-      <Header />
+      <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
       <Routes>
         <Route path="/" element={<LandingPage loggedIn={loggedIn} />} />
         <Route path="/register" element={<Register setLoggedIn={setLoggedIn} />} />
