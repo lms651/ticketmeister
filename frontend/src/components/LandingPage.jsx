@@ -2,13 +2,20 @@ import LandingCarousel from "./LandingCarousel"
 import React from "react"
 import Button from "./Button"
 import EventDetails from "./EventDetails"
+import { useNavigate} from "react-router-dom"
 
-export default function LandingPage() {
 
-    const [loggedIn, setLoggedIn] = React.useState(true)
+export default function LandingPage({ loggedIn }) {
+    const navigate = useNavigate();
+
+    // const [loggedIn, setLoggedIn] = React.useState(false)
     const [selectedVenue, setSelectedVenue] = React.useState(null);
     const [selectedIndex, setSelectedIndex] = React.useState(null);
     const [frozen, setFrozen] = React.useState(false);
+
+    const handleJoinNow = () => {
+        navigate("/register");
+    }
 
     return (
         <main>
@@ -26,7 +33,7 @@ export default function LandingPage() {
             />
 
             {/* Join prompt if not logged in */}
-            {!loggedIn && <Button text="Join now to Book!" />}            
+            {!loggedIn && <Button text="Join now to Book!" onClick = {handleJoinNow} />}            
             
             {/* Event details for the selected slide */}
             { selectedVenue && frozen && (

@@ -28,7 +28,7 @@ export default function Checkout() {
       <p><strong>Tickets:</strong> {ticketNumber}</p>
       <p><strong>Total:</strong> ${totalPrice}</p>
 
-      <button className="button-with-icon"   style={{ backgroundColor: 'green', color: 'white' }}
+      <button className="button-with-icon" style={{ backgroundColor: 'green', color: 'white' }}
       onClick={handleCompletePurchase}><FaCheckCircle size={20} /> Confirm Purchase</button>
       <button className="button-with-icon" onClick={handleCancel}><FaTimesCircle size={20} /> Cancel</button>
     </section>
