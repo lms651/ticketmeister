@@ -8,6 +8,9 @@ import { useNavigate} from "react-router-dom"
 export default function Header({ loggedIn, setLoggedIn }) {
     const navigate = useNavigate();
 
+    const handleLogin = () => {
+        navigate("/login");
+    };
 
     const handleLogout = () => {
         setLoggedIn(false); 
@@ -27,34 +30,40 @@ export default function Header({ loggedIn, setLoggedIn }) {
                 </Link>
             </div>
             <div className="right-section">
-      {loggedIn && (
-        <Menu as="div" className="relative-avatar-container">
-          <MenuButton>
-            <FaUserCircle size={35} className="avatar-icon" />
-          </MenuButton>
-          <MenuItems className="dropdown-menu">
-            <MenuItem
+        {loggedIn ? (
+          <Menu as="div" className="relative-avatar-container">
+            <MenuButton>
+              <FaUserCircle size={35} className="avatar-icon" />
+            </MenuButton>
+            <MenuItems className="dropdown-menu">
+              <MenuItem
                 as="button"
                 className={({ active }) =>
-                `menu-item ${active ? "active" : ""}`
+                  `menu-item ${active ? "active" : ""}`
                 }
-                onClick={ handleEditProfile }
-            >
+                onClick={handleEditProfile}
+              >
                 Edit Profile
-            </MenuItem>
+              </MenuItem>
 
-            <MenuItem
+              <MenuItem
                 as="button"
                 className={({ active }) =>
-                `menu-item ${active ? "active" : ""}`
+                  `menu-item ${active ? "active" : ""}`
                 }
                 onClick={handleLogout}
-            >
+              >
                 Logout
-            </MenuItem>
+              </MenuItem>
             </MenuItems>
-                    </Menu>
-                )}
+          </Menu>
+        ) : (
+          <div className="auth-buttons">
+            <button onClick={handleLogin} className="auth-btn">
+              Login
+            </button>
+          </div>
+        )}
             </div>
         </header>
     )

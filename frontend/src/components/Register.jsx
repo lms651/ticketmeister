@@ -14,10 +14,10 @@ const handleSave = async (e) => {
     e.preventDefault();
     try {
         const newUser = await registerUser({
-        name: userName,
-        password,
-        phone,
-        phoneType,
+            name: userName,
+            password,
+            phone,
+            phoneType,
         });
         setLoggedIn(true);
         toastr.success("User Created!", "Success");
@@ -95,7 +95,6 @@ const handleSave = async (e) => {
             Home
           </label>
         </fieldset>
-
         <button type="submit">Save</button>
       </form>
       <button type="button" onClick={handleCancel}>
