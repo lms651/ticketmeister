@@ -1,23 +1,36 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { registerUser } from "../api/users";
 
 export default function Register({ setLoggedIn }) {
   const navigate = useNavigate();
+  const [error, setError] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [phoneType, setPhoneType] = useState("mobile");
 
-const handleSave = (e) => {
-  e.preventDefault();
-  // send data to backend
-  setLoggedIn(true);
-  navigate("/");
-};
+const handleSave = async (e) => {
+    e.preventDefault();
+    try {
+        const newUser = await registerUser({
+        name: userName,
+        password,
+        phone,
+        phoneType,
+        });
+        setLoggedIn(true);
+        toastr.success("User Created!", "Success");
+        navigate("/"); // back to home
+    } catch (err) {
+        setError(err.message);
+        toastr.error("Please choose a different username", "Error");
+    }
+  }
 
   const handleCancel = () => {
     navigate("/");
-  };
+  }
 
   return (
     <div className="register-form">
