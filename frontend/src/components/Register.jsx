@@ -2,24 +2,29 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../api/users";
 
-export default function Register({ setLoggedIn }) {
+export default function Register({ setLoggedIn, setUserId}) {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [phoneType, setPhoneType] = useState("mobile");
 
 const handleSave = async (e) => {
     e.preventDefault();
+      console.log({ name: userName, password, phone, phoneType }); // check values
+
     try {
         const newUser = await registerUser({
             name: userName,
             password,
+            address,
             phone,
             phoneType,
         });
         setLoggedIn(true);
+        setUserId(newUser._id); // from register response
         toastr.success("User Created!", "Success");
         navigate("/"); // back to home
     } catch (err) {
@@ -60,6 +65,16 @@ const handleSave = async (e) => {
           required
         />
 
+        <label htmlFor="address">Address:</label>
+        <input
+          id="register-address"
+          type="text"
+          name="address"
+          placeholder="234 Address St., Dedham, MA 02026"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+        />
+
         <label htmlFor="phone">Phone Number:</label>
         <input
           id="register-phone"
@@ -69,7 +84,6 @@ const handleSave = async (e) => {
           placeholder="123-456-7890"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          required
         />
 
         <fieldset>

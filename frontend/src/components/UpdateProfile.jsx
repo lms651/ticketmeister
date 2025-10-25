@@ -1,59 +1,88 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { getUser, updateUser } from "../api/users";
 
-export default function Register({ setLoggedIn }) {
+export default function UpdateProfile({ userId }) {
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [phoneType, setPhoneType] = useState("mobile");
+  const [error, setError] = useState("");
 
-const handleSave = (e) => {
-  e.preventDefault();
-  // send data to backend
-  setLoggedIn(true);
-  navigate("/");
-};
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const data = await getUser(userId);
+        setUserName(data.name ?? "");
+        setAddress(data.address ?? "");
+        setPhone(data.phone ?? "");
+        setPhoneType(data.phoneType ?? "mobile");
+      } catch (err) {
+        setError(err.message);
+      }
+    }
+    fetchUser();
+  }, [userId]);
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    try {
+      const updatedData = { phone, phoneType };
+      if (password) updatedData.password = password; // only update if changed
+      await updateUser(userId, updatedData);
+      navigate("/"); // back to home
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
   const handleCancel = () => {
     navigate("/");
   };
 
   return (
-    <div className="register-form">
-      <h1>Create Profile</h1>
+    <div className="update-form">
+      <h1>Update Profile</h1>
       <form onSubmit={handleSave}>
         <label htmlFor="userName">User Name:</label>
         <input
-          id="register-username"
+          id="update-username"
           type="text"
           name="userName"
-          maxLength={255}
-          placeholder="e.g., ConcertGoer55"
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}
-          required
+          value={userName ?? ""}
+          readOnly
         />
 
         <label htmlFor="password">Password:</label>
         <input
-          id="register-password"
+          id="update-password"
           type="password"
           name="password"
-          placeholder="e.g., asdf89!!"
+          placeholder="Enter new password to change"
           maxLength={16}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
+        />
+
+        <label htmlFor="address">Address:</label>
+        <input
+          id="update-address"
+          type="text"
+          name="address"
+          placeholder="Enter new password to change"
+          maxLength={16}
+          value={address ?? ""}
+          onChange={(e) => setAddress(e.target.value)}
         />
 
         <label htmlFor="phone">Phone Number:</label>
         <input
-          id="register-phone"
+          id="update-phone"
           type="tel"
           name="phone"
           pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-          placeholder="123-456-7890"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           required
@@ -83,11 +112,12 @@ const handleSave = (e) => {
           </label>
         </fieldset>
 
+        {error && <p className="error">{error}</p>}
         <button type="submit">Save</button>
+        <button type="button" onClick={handleCancel}>
+          Cancel
+        </button>
       </form>
-      <button type="button" onClick={handleCancel}>
-        Cancel
-      </button>
     </div>
   );
 }

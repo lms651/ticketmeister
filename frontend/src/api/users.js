@@ -1,5 +1,6 @@
 const BASE_URL = "http://localhost:5000/users";
 
+// implemented
 export async function registerUser(userData) {
   const res = await fetch(`${BASE_URL}/register`, {
     method: "POST",
@@ -14,6 +15,7 @@ export async function registerUser(userData) {
   return res.json();
 }
 
+// implemented
 export async function loginUser(credentials) {
   const res = await fetch(`${BASE_URL}/login`, {
     method: "POST",

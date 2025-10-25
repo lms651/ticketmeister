@@ -21,8 +21,8 @@ function App() {
       <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
       <Routes>
         <Route path="/" element={<LandingPage loggedIn={loggedIn} />} />
-        <Route path="/register" element={<Register setLoggedIn={setLoggedIn} />} />
-        <Route path="/login" element={<Login setLoggedIn={setLoggedIn} />} />
+        <Route path="/register" element={<Register setLoggedIn={setLoggedIn} setUserId={setUserId}/>} />
+        <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setUserId={setUserId}/>} />
         <Route path="/update-profile" element={<UpdateProfile userId={userId} setLoggedIn={setLoggedIn} />} />
         <Route path="/event/:id" element={<EventDetails />} />
         <Route path="/checkout" element={<Checkout />} />

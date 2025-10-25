@@ -2,24 +2,30 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../api/users";
 
-export default function Login({ setLoggedIn }) {
+export default function Login({ setLoggedIn, setUserId }) {
   const navigate = useNavigate();
   const [error, setError] = useState("");
-const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
 const handleSave = async (e) => {
   e.preventDefault();
   try {
-    const user = await loginUser({
-      name: userName,
-      password,
-    });
-    setLoggedIn(true);
-    toastr.success("Logged in!", "Success");
-    navigate("/"); // back to home
+    const user = await loginUser({ name: userName, password });
+
+    if (user._id) { // only update state if login was successful
+      setLoggedIn(true);
+      setUserId(user._id);
+      toastr.success("Logged in!", "Success");
+      navigate("/");
+    } else {
+      // login failed
+      setError(user.message || "Invalid credentials");
+      toastr.error("Please try again", "Error");
+    }
   } catch (err) {
-    setError(err.message);
+    console.error(err);
+    setError("Login failed, try again");
     toastr.error("Please try again", "Error");
   }
 };
