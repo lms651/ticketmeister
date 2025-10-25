@@ -9,20 +9,20 @@ const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
 const handleSave = async (e) => {
-    e.preventDefault();
-    try {
-        const loginUser = await loginUser({
-            name: userName,
-            password,
-        });
-        setLoggedIn(true);
-        toastr.success("Logged in!", "Success");
-        navigate("/"); // back to home
-    } catch (err) {
-        setError(err.message);
-        toastr.error("Please try again", "Error");
-    }
+  e.preventDefault();
+  try {
+    const user = await loginUser({
+      name: userName,
+      password,
+    });
+    setLoggedIn(true);
+    toastr.success("Logged in!", "Success");
+    navigate("/"); // back to home
+  } catch (err) {
+    setError(err.message);
+    toastr.error("Please try again", "Error");
   }
+};
 
   const handleCancel = () => {
     navigate("/");
@@ -55,7 +55,7 @@ const handleSave = async (e) => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit">Save</button>
+        <button type="submit" style={{ backgroundColor: 'green', color: 'white' }}>Login</button>
       </form>
       <button type="button" onClick={handleCancel}>
         Cancel

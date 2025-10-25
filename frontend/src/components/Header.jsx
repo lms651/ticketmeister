@@ -59,7 +59,7 @@ export default function Header({ loggedIn, setLoggedIn }) {
           </Menu>
         ) : (
           <div className="auth-buttons">
-            <button onClick={handleLogin} className="auth-btn">
+            <button onClick={handleLogin} className="auth-btn" style={{ backgroundColor: 'blue', color: 'white' }}>
               Login
             </button>
           </div>

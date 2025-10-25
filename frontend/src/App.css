@@ -220,7 +220,7 @@ main {
 @media (max-width: 768px) {
   .event-details,
   .landing-cart {
-    flex: 1 1 100%;   /* stack full width */
+    flex: 1 1 100%;   
     max-width: 100%;
   }
 }
