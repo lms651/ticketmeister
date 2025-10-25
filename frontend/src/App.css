@@ -59,6 +59,13 @@ header {
   background-color: white;
 }
 
+.relative-avatar-container button {
+  width: 35px;
+  height: 35px;
+  padding: 0;
+  background-color: white;
+}
+
 .dropdown-menu {
   position: absolute;
   right: 0;
@@ -80,6 +87,7 @@ header {
   text-align: left;
   cursor: pointer;
   color: #333;
+  white-space: nowrap;
 }
 
 .menu-item:hover,

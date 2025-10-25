@@ -14,6 +14,10 @@ export default function Header({ loggedIn, setLoggedIn }) {
         navigate("/");      
     }
 
+    const handleEditProfile = () => {
+        navigate("/update-profile");
+    }
+
     return (
         <header>
             <div className="left-section">
@@ -34,7 +38,7 @@ export default function Header({ loggedIn, setLoggedIn }) {
                 className={({ active }) =>
                 `menu-item ${active ? "active" : ""}`
                 }
-                onClick={() => console.log("Edit profile")}
+                onClick={ handleEditProfile }
             >
                 Edit Profile
             </MenuItem>
