@@ -29,12 +29,14 @@ export default function UpdateProfile({ userId }) {
   const handleSave = async (e) => {
     e.preventDefault();
     try {
-      const updatedData = { phone, phoneType };
+      const updatedData = { phone, phoneType, address };
       if (password) updatedData.password = password; // only update if changed
       await updateUser(userId, updatedData);
+      toastr.success("Profile Updated!", "Success");
       navigate("/"); // back to home
     } catch (err) {
       setError(err.message);
+      toastr.error("Failed to Update!", "Error");
     }
   };
 
@@ -71,8 +73,6 @@ export default function UpdateProfile({ userId }) {
           id="update-address"
           type="text"
           name="address"
-          placeholder="Enter new password to change"
-          maxLength={16}
           value={address ?? ""}
           onChange={(e) => setAddress(e.target.value)}
         />
@@ -89,7 +89,7 @@ export default function UpdateProfile({ userId }) {
         />
 
         <fieldset>
-          <legend>Phone Type</legend>
+          <legend>Phone Type:</legend>
           <label>
             <input
               type="radio"
@@ -113,11 +113,11 @@ export default function UpdateProfile({ userId }) {
         </fieldset>
 
         {error && <p className="error">{error}</p>}
-        <button type="submit">Save</button>
+        <button type="submit" style={{ backgroundColor: 'green', color: 'white' }} >Save</button>
+      </form>
         <button type="button" onClick={handleCancel}>
           Cancel
         </button>
-      </form>
     </div>
   );
 }

@@ -87,7 +87,7 @@ const handleSave = async (e) => {
         />
 
         <fieldset>
-          <legend>Phone Type</legend>
+          <legend>Phone Type:</legend>
           <label>
             <input
               type="radio"
@@ -109,7 +109,7 @@ const handleSave = async (e) => {
             Home
           </label>
         </fieldset>
-        <button type="submit">Save</button>
+        <button type="submit" style={{ backgroundColor: 'green', color: 'white' }} >Save</button>
       </form>
       <button type="button" onClick={handleCancel}>
         Cancel
