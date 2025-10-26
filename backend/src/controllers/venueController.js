@@ -1,7 +1,17 @@
 import Venue from "../models/venue.js";
 import SignUp from "../models/signup.js";
 
-// Create a new venue
+/**
+ * Creates a new venue.
+ *
+ * @scope public
+ * @param {Object} req.body - Request body containing venue data
+ * @param {string} req.body.eventName - Name of the event
+ * @returns {Object} The newly created venue document
+ * @throws {Error} 400 if a venue with the same eventName already exists
+ * @throws {Error} 500 if creation fails
+ */
+
 export const createVenue = async (req, res) => {
   try {
     const { eventName } = req.body;
@@ -18,10 +28,16 @@ export const createVenue = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+}
 
+/**
+ * Retrieves all venues.
+ *
+ * @scope public
+ * @returns {Array<Object>} List of all venue documents
+ * @throws {Error} 500 if query fails
+ */
 
-// Get all venues (for landing page)
 export const getAllVenues = async (req, res) => {
   try {
     const venues = await Venue.find({});
@@ -29,9 +45,18 @@ export const getAllVenues = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+}
 
-// Get venue by ID (for event details)
+/**
+ * Retrieves a venue by ID, including computed number of attendees.
+ *
+ * @scope public
+ * @param {string} req.params.id - Venue ID
+ * @returns {Object} The venue document with derived attribute `numberOfAttendees`
+ * @throws {Error} 404 if venue not found
+ * @throws {Error} 500 if query fails
+ */
+
 export const getVenueById = async (req, res) => {
   try {
     const venue = await Venue.findById(req.params.id);
@@ -45,9 +70,18 @@ export const getVenueById = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+}
 
-// Update a venue
+/**
+ * Updates a venue by ID.
+ *
+ * @scope public
+ * @param {string} req.params.id - Venue ID
+ * @param {Object} req.body - Updated venue data
+ * @returns {Object} The updated venue document
+ * @throws {Error} 500 if update fails
+ */
+
 export const updateVenue = async (req, res) => {
   try {
     const updatedVenue = await Venue.findByIdAndUpdate(
@@ -59,7 +93,7 @@ export const updateVenue = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+}
 
 // Delete a venue
 export const deleteVenue = async (req, res) => {
@@ -69,4 +103,4 @@ export const deleteVenue = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+}

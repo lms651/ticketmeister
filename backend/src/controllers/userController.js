@@ -1,7 +1,21 @@
 import User from "../models/user.js";
 import bcrypt from "bcryptjs";
 
-// Register a new user
+/**
+ * Registers a new user.
+ *
+ * @scope public
+ * @param {Object} req.body - Request body
+ * @param {string} req.body.name - User's name
+ * @param {string} req.body.phone - User's phone number
+ * @param {string} req.body.phoneType - Type of phone (mobile, home, etc.)
+ * @param {string} req.body.address - User's address
+ * @param {string} req.body.password - User's password
+ * @returns {Object} The saved user document
+ * @throws {Error} 400 if user already exists
+ * @throws {Error} 500 if registration fails
+ */
+
 export const registerUser = async (req, res) => {
   try {
     const { name, phone, phoneType, address, password } = req.body;
@@ -28,9 +42,21 @@ export const registerUser = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+}
 
-// Login user
+/**
+ * Logs in a user.
+ *
+ * @scope public
+ * @param {Object} req.body - Request body
+ * @param {string} req.body.name - User's name
+ * @param {string} req.body.password - User's password
+ * @returns {Object} The user document if authentication succeeds
+ * @throws {Error} 404 if user not found
+ * @throws {Error} 401 if password is invalid
+ * @throws {Error} 500 if login fails
+ */
+
 export const loginUser = async (req, res) => {
   try {
     const { name, password } = req.body;
@@ -46,9 +72,18 @@ export const loginUser = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+}
 
-// Get user by ID
+/**
+ * Retrieves a user by ID.
+ *
+ * @scope public
+ * @param {string} req.params.id - User ID
+ * @returns {Object} The user document
+ * @throws {Error} 404 if user not found
+ * @throws {Error} 500 if query fails
+ */
+
 export const getUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -57,7 +92,15 @@ export const getUser = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+}
+
+/**
+ * Retrieves all users (omitting passwords).
+ *
+ * @scope public
+ * @returns {Array<Object>} List of user documents without passwords
+ * @throws {Error} 500 if query fails
+ */
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -66,9 +109,18 @@ export const getAllUsers = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
+}
 
-// Update user profile
+/**
+ * Updates a user profile.
+ *
+ * @scope public
+ * @param {string} req.params.id - User ID
+ * @param {Object} req.body - Updated user data (name, phone, address, password, etc.)
+ * @returns {Object} The updated user document
+ * @throws {Error} 500 if update fails
+ */
+
 export const updateUser = async (req, res) => {
   try {
     // If password is being updated, hash it
@@ -85,4 +137,4 @@ export const updateUser = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+}

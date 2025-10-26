@@ -13,11 +13,10 @@ connectDB();
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:5173", // frontend dev server
+  origin: "http://localhost:5173", // frontend server
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));
-
 
 app.use(express.json());
 
@@ -25,8 +24,5 @@ app.use(express.json());
 app.use("/users", userRoutes);
 app.use("/venues", venueRoutes);
 app.use("/signups", signupRoutes);
-
-
-// app.get("/", (req, res) => res.send("API is running..."));
 
 export default app;

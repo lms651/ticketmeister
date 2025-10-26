@@ -6,7 +6,7 @@ const signupSchema = new mongoose.Schema({
     ticketCount: { type: Number, required: true }
 }, {
     timestamps: true
-});
+})
 
 const SignUp = mongoose.model("SignUp", signupSchema);
 export default SignUp;

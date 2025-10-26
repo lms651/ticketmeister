@@ -21,13 +21,13 @@ export default function LandingCarousel(props) {
 
   return (
     <Carousel
-      key={props.frozen ? `frozen-${props.frozenSlide}` : "unfrozen"} // forces re-render on freeze
-      autoPlay={!props.frozen} // stops autoplay when frozen
-      infiniteLoop={!props.frozen} // stop infinite loop when frozen
+      key={props.frozen ? `frozen-${props.frozenSlide}` : "unfrozen"}
+      autoPlay={!props.frozen} 
+      infiniteLoop={!props.frozen} 
       showThumbs={false}
       showStatus={false}
       interval={3000}
-      selectedItem={props.frozenSlide ?? 0} // freeze on selected slide
+      selectedItem={props.frozenSlide ?? 0}
     >
       {venues.map((venue, index) => (
         <div key={index} className="carousel-item">

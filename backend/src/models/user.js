@@ -6,13 +6,13 @@ const userSchema = new mongoose.Schema({
     phoneType: { 
         type: String, 
         enum: ["mobile", "home"], 
-        default: "mobile" // optional default
+        default: "mobile"
     },
     address: { type: String },
-    password: { type: String, required: true } // May switch to Google passkey later
+    password: { type: String, required: true } // Switch to google auth later
 }, {
     timestamps: true
-});
+})
 
 const User = mongoose.model("User", userSchema);
 export default User;

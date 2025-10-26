@@ -10,7 +10,7 @@ const venueSchema = new mongoose.Schema({
     imageSrc: { type: String },
 }, {
     timestamps: true
-});
+})
 
 const Venue = mongoose.model("Venue", venueSchema);
 export default Venue;

@@ -7,13 +7,12 @@ dotenv.config({ path: ".env.venue.test" });
 
 beforeAll(async () => {
   await mongoose.connect(process.env.MONGO_URI);
-});
+})
 
 afterAll(async () => {
 await mongoose.connection.db.dropDatabase();
   await mongoose.connection.close();
-
-});
+})
 
 describe("Venue Routes", () => {
   let venueId;
@@ -34,30 +33,27 @@ describe("Venue Routes", () => {
         ticketPrice: 50,
       });
 
-    // Check POST succeeded
     expect(res.statusCode).toBe(201);
     expect(res.body._id).toBeDefined();
 
-    // Save the ID
     venueId = res.body._id;
 
-    // Logs go here inside beforeEach
     console.log("POST response:", res.statusCode, res.body);
     console.log("Venue ID:", venueId);
-  });
+  })
 
   test("GET /venues should return list of venues", async () => {
     const res = await request(app).get("/venues");
     expect(res.statusCode).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
     // expect(res.body.length).toBe(1);
-  });
+  })
 
   test("GET /venues/:id should return a single venue", async () => {
     const res = await request(app).get(`/venues/${venueId}`);
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty("_id", venueId);
-  });
+  })
 
   test("PUT /venues/:id should update venue", async () => {
     const res = await request(app)
@@ -65,7 +61,7 @@ describe("Venue Routes", () => {
       .send({ ticketPrice: 60 });
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty("ticketPrice", 60);
-  });
+  })
 
   test("DELETE /venues/:id should delete venue", async () => {
     const res = await request(app).delete(`/venues/${venueId}`);
@@ -73,5 +69,5 @@ describe("Venue Routes", () => {
 
     const check = await request(app).get(`/venues/${venueId}`);
     expect(check.statusCode).toBe(404);
-  });
-});
+  })
+})

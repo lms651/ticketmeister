@@ -7,13 +7,12 @@ dotenv.config({ path: ".env.user.test" });
 
 beforeAll(async () => {
   await mongoose.connect(process.env.MONGO_URI);
-});
+})
 
 afterAll(async () => {
-  // drop DB once at the end and close connection
   await mongoose.connection.db.dropDatabase();
   await mongoose.connection.close();
-});
+})
 
 describe("User Routes", () => {
   let loriId;
@@ -31,10 +30,10 @@ describe("User Routes", () => {
         phoneType: "mobile",
         address: "123 Main St",
         password: "password123"
-      });
+      })
     
     loriId = res.body._id; // save for PUT tests
-  });
+  })
 
   test("POST /users/register should create a new user", async () => {
     const res = await request(app)
@@ -45,11 +44,11 @@ describe("User Routes", () => {
         phoneType: "home",
         address: "456 Elm St",
         password: "password456"
-      });
+      })
 
     expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty("name", "Alice");
-  });
+  })
 
   test("GET /users should return list of users", async () => {
     const res = await request(app).get("/users");
@@ -58,8 +57,7 @@ describe("User Routes", () => {
     // expect(res.body.length).toBe(1); // only Lori
     // expect(res.body[0]).toHaveProperty("name", "Lori");
     expect(res.body.some(u => u.name === "Lori")).toBe(true);
-
-  });
+  })
 
   test("PUT /users/:id should update an existing user", async () => {
     const updateRes = await request(app)
@@ -68,5 +66,5 @@ describe("User Routes", () => {
 
     expect(updateRes.statusCode).toBe(200);
     expect(updateRes.body).toHaveProperty("phone", "987-654-3210");
-  });
-});
+  })
+})

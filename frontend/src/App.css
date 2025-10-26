@@ -5,7 +5,7 @@ body {
 header {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* keeps avatar far right */
+  justify-content: space-between;
   background-color: white;
   padding: 0 16px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -103,11 +103,9 @@ header {
   margin-bottom: 10px;
 }
 
-/* @media (max-width: 768px) {
-  .carousel img {
-    height: 250px;
-  }
-} */
+.carousel .control-arrow {
+  width: 30px;
+}
 
 h2, h1 {
   text-align: center;
@@ -128,6 +126,26 @@ button {
     cursor: pointer;
 }
 
+.auth-buttons button {
+  width: 130px;
+  padding: 8px 10px;
+  font-size: 0.85rem;
+  background-color: #2a8fed;
+  color: white;
+}
+
+.auth-buttons button:hover {
+  background-color: #3373af;
+}
+
+@media (max-width: 480px) {
+  .auth-buttons button {
+    width: 90px;
+    font-size: 0.75rem;
+    padding: 6px;
+    margin-left: 10px;
+  }
+}
 main {
   text-align: center;
 }
@@ -164,16 +182,17 @@ main {
 }
 
 .carousel-item {
-  position: relative; /* needed to position the button absolutely */
+  position: relative;
 }
 
 .book-btn {
   position: absolute;
-  bottom: 20px;          /* distance from bottom of image */
-  left: 50%;             /* center horizontally */
+  bottom: 20px;          
+  left: 50%;            
   transform: translateX(-50%);
-  padding: 6px 10px;      /* smaller padding */
-  font-size: 14px;         /* smaller text */  background-color: #007bff;
+  padding: 6px 10px;     
+  font-size: 14px;         
+  background-color: #2a8fed;
   color: white;
   border: none;
   border-radius: 6px;
@@ -183,7 +202,7 @@ main {
 }
 
 .book-btn:hover {
-  background-color: #0056b3;
+  background-color: #3373af;
 }
 
 .event-container {
@@ -194,13 +213,13 @@ main {
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
-  align-items: flex-start; /* align top edges */
+  align-items: flex-start; 
 }
 
 .event-details,
 .landing-cart {
-  flex: 1 1 45%;       /* both take roughly half the row */
-  max-width: 500px;    /* same max width for both */
+  flex: 1 1 45%;      
+  max-width: 500px;    
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -216,7 +235,6 @@ main {
   background-color: #fff;
 }
 
-/* Responsive for mobile */
 @media (max-width: 768px) {
   .event-details,
   .landing-cart {
@@ -262,9 +280,9 @@ main {
 }
 
 .event-table {
-  width: 100%;            /* full width of parent container */
+  width: 100%;            
   border-collapse: collapse;
-  table-layout: auto;     /* allow columns to scale naturally */
+  table-layout: auto;    
 }
 
 .event-table th,

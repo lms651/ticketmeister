@@ -8,7 +8,6 @@ import { useNavigate} from "react-router-dom"
 export default function LandingPage({ loggedIn }) {
     const navigate = useNavigate();
 
-    // const [loggedIn, setLoggedIn] = React.useState(false)
     const [selectedVenue, setSelectedVenue] = React.useState(null);
     const [selectedIndex, setSelectedIndex] = React.useState(null);
     const [frozen, setFrozen] = React.useState(false);
@@ -26,7 +25,7 @@ export default function LandingPage({ loggedIn }) {
                 clickedBookNow={(event, index) => {
                     setSelectedVenue(event);
                     setSelectedIndex(index);
-                    setFrozen(true); // freeze carousel immediately and show event details^^
+                    setFrozen(true); // freeze carousel immediately and show event details
                 }}
                 frozen={frozen}
                 frozenSlide={selectedIndex}
