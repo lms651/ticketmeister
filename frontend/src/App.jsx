@@ -25,7 +25,7 @@ function App() {
         <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setUserId={setUserId}/>} />
         <Route path="/update-profile" element={<UpdateProfile userId={userId} setLoggedIn={setLoggedIn} />} />
         <Route path="/event/:id" element={<EventDetails />} />
-        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/checkout" element={<Checkout userId={userId} />} />
         <Route path="/purchase" element={<PurchaseComplete />} />
       </Routes>
     </Router>

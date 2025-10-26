@@ -6,6 +6,7 @@ export async function getAllVenues() {
   return res.json();
 }
 
+// implemented
 export async function getVenueById(venueId) {
   const res = await fetch(`${VENUE_URL}/${venueId}`);
   return res.json();
