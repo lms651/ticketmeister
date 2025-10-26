@@ -9,7 +9,7 @@ export default function LandingCarousel(props) {
   React.useEffect(() => {
     const fetchVenues = async () => {
       try {
-        const data = await getAllVenues() // use your API helper
+        const data = await getAllVenues() 
         setVenues(data)
       } catch (err) {
         console.error("Error fetching venues:", err)

@@ -24,7 +24,7 @@ export default function EventDetails(props) {
 
         navigate("/checkout", {
             state: {
-            event: props.venue, // passing full venue object
+            event: props.venue,
             ticketNumber,
             totalPrice,
             }
