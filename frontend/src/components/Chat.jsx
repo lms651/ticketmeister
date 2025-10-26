@@ -1,46 +1,60 @@
 import '/node_modules/@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import {
-MainContainer,
-ChatContainer,
-MessageList,
-Message,
-MessageInput,
+  MainContainer,
+  ChatContainer,
+  MessageList,
+  Message,
+  MessageInput,
 } from "@chatscope/chat-ui-kit-react";
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { io } from "socket.io-client";
 
-export default function Chat() {
+export default function Chat({ eventId, userName }) {
+  const [messages, setMessages] = useState([]);
+  const socketRef = useRef();
 
-    const now = new Date();
-    const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    const [messages, setMessages] = React.useState([
-        { message: "Hello my friend", sentTime: timeString, sender: "Joe" },
-    ])
+  useEffect(() => {
+    socketRef.current = io("http://localhost:5000");
 
-    const handleSend = (text) => {
-        if (!text) return;
-        const newMessage = { message: text, sentTime: timeString, sender: "You" };
-      setMessages([...messages, newMessage]);
-    }
+    // join room for this event
+    socketRef.current.emit("joinRoom", eventId, userName);
 
-    return (
+    // listen for messages
+    socketRef.current.on("chat message", (msg) => {
+      setMessages(prev => [...prev, msg]);
+    });
+
+    // cleanup on unmount
+    return () => socketRef.current.disconnect();
+  }, [eventId, userName]);
+
+  const handleSend = (text) => {
+    if (!text) return;
+    socketRef.current.emit("chat message", {
+      venueId: eventId,
+      userName,
+      msg: text,
+    });
+  };
+
+  return (
     <div style={{ position: "relative", height: "500px" }}>
       <MainContainer>
         <ChatContainer>
-        <MessageList>
-            {messages.map((msg, index) => (
-                <Message
-                key={index}
+          <MessageList>
+            {messages.map((msg, i) => (
+              <Message
+                key={i}
                 model={{
-                    message: `${msg.sentTime} | ${msg.sender}: ${msg.message}`,
-                    direction: msg.sender === "You" ? "outgoing" : "incoming",
+                  message: `${msg.sentTime} | ${msg.sender}: ${msg.message}`,
+                  direction: msg.sender === userName ? "outgoing" : "incoming",
                 }}
-                />
+              />
             ))}
-        </MessageList>
-        <MessageInput placeholder="Type message here" onSend={handleSend} />
+          </MessageList>
+          <MessageInput placeholder="Type message here" onSend={handleSend} />
         </ChatContainer>
       </MainContainer>
     </div>
-  )
+  );
 }
-
