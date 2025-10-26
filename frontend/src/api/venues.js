@@ -1,6 +1,6 @@
-// api/venues.js
 const VENUE_URL = "http://localhost:5000/venues";
 
+// implemented
 export async function getAllVenues() {
   const res = await fetch(`${VENUE_URL}`);
   return res.json();

@@ -7,6 +7,7 @@ const venueSchema = new mongoose.Schema({
     eventDate: { type: Date, required: true },
     eventTime: { type: String, required: true },
     ticketPrice: { type: Number, required: true },
+    imageSrc: { type: String },
 }, {
     timestamps: true
 });

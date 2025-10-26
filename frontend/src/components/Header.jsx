@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logo from "../images/presenter.jpg"
+import logo from "/images/presenter.jpg"
 import { FaUserCircle } from "react-icons/fa";
 import { Menu, MenuItems, MenuItem, MenuButton } from "@headlessui/react";
 import { useNavigate} from "react-router-dom"

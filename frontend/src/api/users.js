@@ -25,11 +25,13 @@ export async function loginUser(credentials) {
   return res.json();
 }
 
+// implemented
 export async function getUser(userId) {
   const res = await fetch(`${BASE_URL}/${userId}`);
   return res.json();
 }
 
+// implemented
 export async function updateUser(userId, userData) {
   const res = await fetch(`${BASE_URL}/${userId}`, {
     method: "PUT",

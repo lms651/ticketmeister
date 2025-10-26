@@ -1,32 +1,22 @@
 import { Carousel } from "react-responsive-carousel"
 import "react-responsive-carousel/lib/styles/carousel.min.css"
-import pixel from "../images/pixel.jpg"
-import carnaval from "../images/carnaval2.jpg"
+import { getAllVenues } from "../api/venues"
+import React from "react";
 
 export default function LandingCarousel(props) {
+  const [venues, setVenues] = React.useState([]);
 
-  // Later fetch from MongoDB
-  const venues = [
-    { 
-      src: pixel, 
-      eventName: "Pixel Party", 
-      eventDescription: "Choose any 8-bit character!", 
-      venueName: "7th Wave", 
-      eventDate: "Dec 10", 
-      eventTime: "7PM", 
-      ticketPrice: 30 
-    },
-    { 
-      src: carnaval, 
-      eventName: "Winter Carnaval", 
-      eventDescription: "Come meet Bonhomme!", 
-      venueName: "Quebec City", 
-      eventDate: "Dec 20", 
-      eventTime: "6PM", 
-      ticketPrice: 50 
+  React.useEffect(() => {
+    const fetchVenues = async () => {
+      try {
+        const data = await getAllVenues() // use your API helper
+        setVenues(data)
+      } catch (err) {
+        console.error("Error fetching venues:", err)
+      }
     }
-  ]
-
+    fetchVenues()
+  }, [])
 
 
   return (
@@ -41,7 +31,7 @@ export default function LandingCarousel(props) {
     >
       {venues.map((venue, index) => (
         <div key={index} className="carousel-item">
-          <img src={venue.src} alt={venue.eventName} />
+          <img src={venue.imageSrc} alt={venue.eventName} />
           <p className="legend">{venue.eventDescription}</p>
           
           {props.loggedIn && (
