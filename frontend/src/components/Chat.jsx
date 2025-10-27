@@ -6,7 +6,7 @@ import {
   Message,
   MessageInput,
 } from "@chatscope/chat-ui-kit-react";
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { io } from "socket.io-client";
 
 export default function Chat({ eventId, userName }) {
@@ -16,13 +16,13 @@ export default function Chat({ eventId, userName }) {
   useEffect(() => {
     socketRef.current = io("http://localhost:5000");
 
-    // join room for this event
+    // join room for event
     socketRef.current.emit("joinRoom", eventId, userName);
 
     // listen for messages
     socketRef.current.on("chat message", (msg) => {
       setMessages(prev => [...prev, msg]);
-    });
+    })
 
     // cleanup on unmount
     return () => socketRef.current.disconnect();
@@ -34,8 +34,8 @@ export default function Chat({ eventId, userName }) {
       venueId: eventId,
       userName,
       msg: text,
-    });
-  };
+    })
+  }
 
   return (
     <div style={{ position: "relative", height: "500px" }}>
@@ -56,5 +56,5 @@ export default function Chat({ eventId, userName }) {
         </ChatContainer>
       </MainContainer>
     </div>
-  );
+  )
 }

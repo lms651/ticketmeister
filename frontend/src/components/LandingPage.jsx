@@ -18,7 +18,7 @@ export default function LandingPage({ loggedIn }) {
 
     return (
         <main>
-            <h2>Check out the latest events!</h2>
+            <h2>Check out upcoming events!</h2>
             {/* Carousel */}
             <LandingCarousel
                 loggedIn={loggedIn}

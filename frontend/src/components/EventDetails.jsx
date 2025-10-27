@@ -52,7 +52,7 @@ export default function EventDetails(props) {
                 </tr>
                 <tr>
                   <th>Date</th>
-                  <td>{props.venue.eventDate}</td>
+                  <td>{new Date(props.venue.eventDate).toLocaleDateString()}</td>
                 </tr>
                 <tr>
                   <th>Time</th>
@@ -65,15 +65,15 @@ export default function EventDetails(props) {
               </tbody>
             </table>
           </section>
-              <section className="landing-cart">
-              <h1>Buy Tickets Now!</h1>
-                  <form onSubmit={handleSubmit}>
-                      <label htmlFor="ticketNumber">Number of Tickets:</label>
-                      <input id="purchase-ticket" type="number" min="1" max="20" step="1" name="ticketNumber" value={ticketNumber} onChange={handleTicketAmountChange}/>
-                      <p>Total Price: ${totalPrice} </p>
-                      <button className="button-with-icon" type="submit"> <FaShoppingCart size={20} /> Checkout</button>
-                  </form>
-              </section>
+          <section className="landing-cart">
+          <h1>Buy Tickets Now!</h1>
+              <form onSubmit={handleSubmit}>
+                  <label htmlFor="ticketNumber"><strong>Number of Tickets:  </strong></label>
+                  <input id="purchase-ticket" type="number" min="1" max="20" step="1" name="ticketNumber" value={ticketNumber} onChange={handleTicketAmountChange}/>
+                  <p><strong>Total Price: </strong>${totalPrice} </p>
+                  <button className="button-with-icon" type="submit"> <FaShoppingCart size={20} /> Checkout</button>
+              </form>
+          </section>
         </div>
     )
 }

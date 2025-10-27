@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { createSignUp } from "../api/signups";
 
-export default function Checkout({ userId }) { // pass userId from App or context
+export default function Checkout({ userId }) {
   const location = useLocation();
   const navigate = useNavigate();
   const { event, ticketNumber } = location.state || {};
@@ -14,34 +14,34 @@ export default function Checkout({ userId }) { // pass userId from App or contex
   const handleCompletePurchase = async () => {
     try {
       const signupData = {
-        userId,          // must be provided from logged-in user
+        userId,          
         venueId: event._id,
         ticketCount: ticketNumber,
       };
 
       const response = await createSignUp(signupData);
-      console.log("Signup successful:", response);
+      toastr.success("You are now registered for this event!:", "Success");
 
       navigate("/purchase", {
         state: { event, userId },
-      }); // go to confirmation page
+      })
 
     } catch (err) {
       console.error("Error creating signup:", err);
       alert("There was an error completing your purchase. Please try again.");
     }
-  };
+  }
 
   const handleCancel = () => {
     navigate("/");
-  };
+  }
 
   return (
     <section className="checkout">
       <h1>Checkout</h1>
       <p><strong>Event:</strong> {event.eventName}</p>
       <p><strong>Venue:</strong> {event.venueName}</p>
-      <p><strong>Date:</strong> {event.eventDate}</p>
+      <p><strong>Date:</strong> {new Date(event.eventDate).toLocaleDateString()}</p>
       <p><strong>Tickets:</strong> {ticketNumber}</p>
 
       <button
@@ -58,5 +58,5 @@ export default function Checkout({ userId }) { // pass userId from App or contex
         <FaTimesCircle size={20} /> Cancel
       </button>
     </section>
-  );
+  )
 }

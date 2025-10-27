@@ -1,6 +1,5 @@
-const BASE_URL = "http://localhost:5000/users";
+const BASE_URL = `${import.meta.env.VITE_API_URL}/users`;
 
-// implemented
 export async function registerUser(userData) {
   const res = await fetch(`${BASE_URL}/register`, {
     method: "POST",
@@ -15,7 +14,6 @@ export async function registerUser(userData) {
   return res.json();
 }
 
-// implemented
 export async function loginUser(credentials) {
   const res = await fetch(`${BASE_URL}/login`, {
     method: "POST",
@@ -25,13 +23,11 @@ export async function loginUser(credentials) {
   return res.json();
 }
 
-// implemented
 export async function getUser(userId) {
   const res = await fetch(`${BASE_URL}/${userId}`);
   return res.json();
 }
 
-// implemented
 export async function updateUser(userId, userData) {
   const res = await fetch(`${BASE_URL}/${userId}`, {
     method: "PUT",

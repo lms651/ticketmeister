@@ -1,5 +1,4 @@
-// api/signups.js
-const SIGNUP_URL = "http://localhost:5000/signups";
+const SIGNUP_URL = `${import.meta.env.VITE_API_URL}/signups`;
 
 export async function createSignUp(signupData) {
   const res = await fetch(`${SIGNUP_URL}`, {
